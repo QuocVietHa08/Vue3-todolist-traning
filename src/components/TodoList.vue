@@ -12,16 +12,20 @@ function addTodo() {
   const newTodo = {
     status: "create",
     title: inputRef.value,
-  }
+  };
   todos.value.push(newTodo);
   inputRef.value = "";
-  console.log("todos:", todos.value[0]);
 }
 
 function deleteTodo(todoIndex) {
   const cloneTodo = todos.value.filter((_, index) => index !== todoIndex);
-  console.log("todo:", todoIndex)
-  console.log("delete:", cloneTodo);
+  todos.value = cloneTodo;
+}
+
+function editTodo(todoIndex) {
+  console.log("todoIndex:", todoIndex);
+  const cloneTodo = [...todos.value];
+  cloneTodo[todoIndex] = { ...cloneTodo[todoIndex], status: "edit" };
   todos.value = cloneTodo;
 }
 </script>
@@ -37,7 +41,11 @@ function deleteTodo(todoIndex) {
     <button class="button" @click="addTodo">Add</button>
   </div>
   <div v-for="(todo, index) in todos" :key="todo">
-    <Todo :todo="{ id: index, ...todo }" @delete-todo="deleteTodo" />
+    <Todo
+      :todo="{ id: index, ...todo }"
+      @edit-todo="editTodo"
+      @delete-todo="deleteTodo"
+    />
   </div>
 </template>
 
@@ -56,7 +64,7 @@ function deleteTodo(todoIndex) {
   height: 50%;
   display: flex;
   gap: 10px;
-  width: 100%;
+  width: 150%;
 }
 
 .button {

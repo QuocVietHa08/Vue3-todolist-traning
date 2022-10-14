@@ -7,19 +7,30 @@ const props = defineProps({
   },
 });
 </script>
-
 <template>
   <div class="todo">
-    <span>{{ props.todo.title}} </span>
-    <!-- <span>{{ props.todo.index }}</span> -->
-    <span class="deleteButton" @click="$emit('delete-todo', props.todo.index)"
-      >Detele</span
-    >
+    <span v-if="props.todo.status === 'create'">{{ props.todo.title }} </span>
+    <span v-if="props.todo.status === 'edit'">
+      <input :value="props.todo.title" />
+    </span>
+    <div class="buttonWrapper">
+      <span
+        v-if="props.todo.status === 'create'"
+        class="editButton"
+        @click="$emit('edit-todo', props.todo.id)"
+        >Edit</span
+      >
+      <span v-if="props.todo.status === 'edit'" class="editButton">Done</span>
+      <span class="deleteButton" @click="$emit('delete-todo', props.todo.id)"
+        >Detele</span
+      >
+    </div>
   </div>
 </template>
 
 <style scoped>
 .todo {
+  width: 150%;
   margin: 5px 0px;
   padding: 10px 10px;
   border: 1px solid lightblue;
@@ -34,5 +45,18 @@ const props = defineProps({
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.editButton {
+  background-color: lightgreen;
+  color: white;
+  border-radius: 5px;
+  padding: 0px 5px;
+  cursor: pointer;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 10px;
 }
 </style>

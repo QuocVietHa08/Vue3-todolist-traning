@@ -10,7 +10,6 @@ import TodoList from "./components/TodoList.vue";
 
 <style scoped>
 .todolist-wrapper {
-  transform: translateX(40%);
   width: 150%;
   margin: auto;
 }
