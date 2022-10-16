@@ -1,4 +1,6 @@
 <script setup>
+import { ref, watch } from "vue";
+const inputRef = ref("");
 const props = defineProps({
   todo: {
     title: String,
@@ -6,12 +8,18 @@ const props = defineProps({
     status: String,
   },
 });
+
+function handleOnChangeInput(event) {
+  inputRef.value = event.target.value;
+}
+
+watch(() => (inputRef.value = props.todo.title));
 </script>
 <template>
   <div class="todo">
     <span v-if="props.todo.status === 'create'">{{ props.todo.title }} </span>
     <span v-if="props.todo.status === 'edit'">
-      <input :value="props.todo.title" />
+      <input :value="inputRef" @input="handleOnChangeInput" />
     </span>
     <div class="buttonWrapper">
       <span
@@ -20,7 +28,12 @@ const props = defineProps({
         @click="$emit('edit-todo', props.todo.id)"
         >Edit</span
       >
-      <span v-if="props.todo.status === 'edit'" class="editButton">Done</span>
+      <span
+        v-if="props.todo.status === 'edit'"
+        class="editButton"
+        @click="$emit('change-todo', props.todo.id, inputRef.valueOf())"
+        >Done</span
+      >
       <span class="deleteButton" @click="$emit('delete-todo', props.todo.id)"
         >Detele</span
       >
@@ -30,8 +43,8 @@ const props = defineProps({
 
 <style scoped>
 .todo {
-  width: 150%;
-  margin: 5px 0px;
+  width: 100%;
+  margin: 15px 0px;
   padding: 10px 10px;
   border: 1px solid lightblue;
   border-radius: 5px;

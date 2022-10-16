@@ -23,9 +23,18 @@ function deleteTodo(todoIndex) {
 }
 
 function editTodo(todoIndex) {
-  console.log("todoIndex:", todoIndex);
   const cloneTodo = [...todos.value];
   cloneTodo[todoIndex] = { ...cloneTodo[todoIndex], status: "edit" };
+  todos.value = cloneTodo;
+}
+
+function changeTodo(todoIndex, changeValue) {
+  const cloneTodo = [...todos.value];
+  cloneTodo[todoIndex] = {
+    ...cloneTodo[todoIndex],
+    status: "create",
+    title: changeValue,
+  };
   todos.value = cloneTodo;
 }
 </script>
@@ -40,11 +49,12 @@ function editTodo(todoIndex) {
     />
     <button class="button" @click="addTodo">Add</button>
   </div>
-  <div v-for="(todo, index) in todos" :key="todo">
+  <div class="todo-wrapper" v-for="(todo, index) in todos" :key="todo">
     <Todo
       :todo="{ id: index, ...todo }"
       @edit-todo="editTodo"
       @delete-todo="deleteTodo"
+      @change-todo="changeTodo"
     />
   </div>
 </template>
@@ -60,11 +70,11 @@ function editTodo(todoIndex) {
 }
 
 .todo-input {
-  margin: 10px auto;
+  /* margin: 10px auto; */
   height: 50%;
   display: flex;
   gap: 10px;
-  width: 150%;
+  width: 100%;
 }
 
 .button {
@@ -74,5 +84,9 @@ function editTodo(todoIndex) {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.todo-wrapper {
+  width: 100%;
 }
 </style>
