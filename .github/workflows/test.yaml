@@ -1,13 +1,13 @@
-name: My CI-CD
-
+name: My CI-CD 
 on:
   push: 
     branches: [develop]
 jobs: 
   build: 
     runs-on: ubuntu-latest
+   
     steps: 
-      - name: Install npm
-      — run: |
+      — uses: actions/checkout@v2 
+      — run: | 
+          cd my-express-app && pwd
           npm i
-          npm build
