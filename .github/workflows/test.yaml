@@ -3,10 +3,11 @@ on:
   push: 
     branches: [develop]
 jobs: 
-  build: 
+  release:
     runs-on: ubuntu-latest
-   
-    steps: 
-      — run: | 
-          cd my-express-app && pwd
-          npm i
+    steps:
+    - name: install package
+      run:
+        npm i
+        
+      
