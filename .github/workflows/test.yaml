@@ -3,11 +3,12 @@ on:
   push: 
     branches: [develop]
 jobs: 
-  release:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: install package
       run:
+        cd /var/www/vue-project
         npm i
-        
+
       
