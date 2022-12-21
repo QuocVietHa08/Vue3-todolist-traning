@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: install package
-      run:
-        cd /var/www/vue-project
+      run: |
+        cd /var/www/vue-project && pwd
         npm i
 
       
