@@ -6,9 +6,9 @@ on:
 jobs: 
   build: 
     runs-on: ubuntu-latest
-   
+
     steps: 
       - name: Install npm
-      — run: | 
+      — run: |
           npm i
           npm build
