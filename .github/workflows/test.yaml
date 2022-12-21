@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
    
     steps: 
-      — uses: actions/checkout@v2 
       — run: | 
           cd my-express-app && pwd
           npm i
