@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: install package
       run: |
-        cd /var/www/vue-project && pwd
+        echo pwd
         npm i
 
       
